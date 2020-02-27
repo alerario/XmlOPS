@@ -13,6 +13,7 @@ public class XMLTreeViewer extends JFrame {
     private JTree xmlTree;
     private Document xmlDoc;
     DefaultMutableTreeNode tn;
+    protected String ATRIB="@"; //previxo para indicar o que e atributo em xmlTree. 
 
     public XMLTreeViewer(String xml_text) {
         super();
@@ -33,7 +34,7 @@ public class XMLTreeViewer extends JFrame {
         xmlTree = new JTree();
 
         xmlTree.setCellRenderer(new DefaultTreeCellRenderer() {
-            private Icon loadIcon = UIManager.getIcon("RadioButton.icon");
+            private Icon novoicon = UIManager.getIcon("RadioButton.icon");
            
 
             @Override
@@ -43,8 +44,9 @@ public class XMLTreeViewer extends JFrame {
                 Component c = super.getTreeCellRendererComponent(tree, value, selected,
                         expanded, isLeaf, row, focused);
                
-               if( ((DefaultMutableTreeNode) value).toString().substring(0,1).equals("@")){
-                   setIcon(loadIcon);
+               if( ((DefaultMutableTreeNode) value).toString().substring(0,ATRIB.length()).equals(ATRIB)){
+                   setText( ((DefaultMutableTreeNode) value).toString().replace(ATRIB, ""));
+                   setIcon(novoicon);
                }
     
                 return c;
@@ -94,7 +96,7 @@ public class XMLTreeViewer extends JFrame {
         while (atts.hasNext()) {
             Attribute att = (Attribute) atts.next();
             DefaultMutableTreeNode attNode
-                    = new DefaultMutableTreeNode("@: " + att.getName());
+                    = new DefaultMutableTreeNode(ATRIB + att.getName());
 
             attNode.add(new DefaultMutableTreeNode(att.getValue()));
             dmtn.add(attNode);
