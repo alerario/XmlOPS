@@ -295,20 +295,23 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         JFileChooser xsdf = new JFileChooser();
-        xsdf.setDialogTitle("Escolha um XSD ");
-        xsdf.showSaveDialog(null);
+        xsdf.setDialogTitle("Escolha um XSD - ou cancele caso nao tenha um XSD ");
+        xsdf.showOpenDialog(null);
         File xsdfile = xsdf.getSelectedFile();
 
         JFileChooser xmlf = new JFileChooser();
         xmlf.setDialogTitle("Escolha um XML ");
-        xmlf.showSaveDialog(null);
+        xmlf.showOpenDialog(null);
         File xmlfile = xmlf.getSelectedFile();
 
-        Object objeto = new br.util.XMLUtil().convertXmlToObject(xmlfile, xsdfile, Alunos.class);
-        Alunos alunos = (Alunos) objeto;
-
-        lalunos = alunos.getLaluno(); //new br.util.XMLUtil().convertXmlToObject(xmlfile, xsdfile).getLaluno();
-
+        if (xmlfile != null) {
+            Object objeto = new br.util.XMLUtil().convertXmlToObject(xmlfile, xsdfile, Alunos.class);
+            Alunos alunos = (Alunos) objeto;
+            lalunos = alunos.getLaluno(); 
+            jTextArea2.setText("Arquivo xml carregado");
+        } else {
+            jTextArea2.setText("=== Arquivo NAO carregado ===");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

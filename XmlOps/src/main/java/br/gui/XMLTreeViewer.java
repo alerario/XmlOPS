@@ -8,9 +8,7 @@ import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import java.io.StringReader;
 
-
 public class XMLTreeViewer extends JFrame {
-
 
     private JTree xmlTree;
     private Document xmlDoc;
@@ -18,7 +16,7 @@ public class XMLTreeViewer extends JFrame {
 
     public XMLTreeViewer(String xml_text) {
         super();
-        Document doc=null;
+        Document doc = null;
         try {
             doc = new SAXBuilder().build(new StringReader(xml_text));
         } catch (Exception e) {
@@ -33,9 +31,29 @@ public class XMLTreeViewer extends JFrame {
     private void initialize() {
 
         xmlTree = new JTree();
+
+        xmlTree.setCellRenderer(new DefaultTreeCellRenderer() {
+            private Icon loadIcon = UIManager.getIcon("RadioButton.icon");
+           
+
+            @Override
+            public Component getTreeCellRendererComponent(JTree tree, Object value,
+                    boolean selected, boolean expanded, boolean isLeaf, int row,
+                    boolean focused) {
+                Component c = super.getTreeCellRendererComponent(tree, value, selected,
+                        expanded, isLeaf, row, focused);
+               
+               if( ((DefaultMutableTreeNode) value).toString().substring(0,1).equals("@")){
+                   setIcon(loadIcon);
+               }
+    
+                return c;
+            }
+        });
+
         xmlTree.setName("XML Tree");
         this.setTitle(xmlDoc.getRootElement().getName());
- 
+
         getContentPane().add(new JScrollPane(xmlTree), BorderLayout.CENTER);
 
         processElement(xmlDoc.getRootElement(), tn);
@@ -77,12 +95,11 @@ public class XMLTreeViewer extends JFrame {
             Attribute att = (Attribute) atts.next();
             DefaultMutableTreeNode attNode
                     = new DefaultMutableTreeNode("@: " + att.getName());
-   
+
             attNode.add(new DefaultMutableTreeNode(att.getValue()));
             dmtn.add(attNode);
-          
+
         }
     }
 
-   
 }
