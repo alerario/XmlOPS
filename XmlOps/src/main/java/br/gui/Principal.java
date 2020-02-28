@@ -46,10 +46,12 @@ public class Principal extends javax.swing.JFrame {
             ImageIcon imgicon = new ImageIcon(url);
             setIconImage(imgicon.getImage());
 
-            //adicionar icone no mac
-            com.apple.eawt.Application application = com.apple.eawt.Application.getApplication();
-            application.setDockIconImage(imgicon.getImage());
-
+             //adicionar icone no mac
+            String so = System.getProperty("os.name");
+            if (so.toUpperCase().startsWith("MAC")) {
+                com.apple.eawt.Application application = com.apple.eawt.Application.getApplication();
+                application.setDockIconImage(imgicon.getImage());
+            }
         } catch (Exception e) {
             System.out.println("ERRO");
             e.printStackTrace();

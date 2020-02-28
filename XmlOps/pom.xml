@@ -83,11 +83,7 @@
             <resource>
                 <directory>${project.basedir}/src/main/java/resources</directory>
                 <includes>
-                    <include>xml.png</include>
-                     <include>xml.gif</include>
-                      <include>xml_32.gif</include>
-                       <include>xmls.png</include>
-                       
+                    <include>xml.png</include>    
                 </includes>
             </resource>
         </resources>
