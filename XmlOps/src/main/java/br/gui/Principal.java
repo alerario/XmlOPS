@@ -69,6 +69,7 @@ public class Principal extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("XmlOps");
 
         jButton1.setText("Adicionar aluno");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +288,7 @@ public class Principal extends javax.swing.JFrame {
         JFileChooser jcf = new JFileChooser();
         jcf.showSaveDialog(null);
         File file = jcf.getSelectedFile();
-        String txt = xu.convertObjectToXML(alunos, file);
+        String txt = xu.convertObjectToXML(alunos, file, Alunos.class);
         jTextArea2.setText(txt);
     }//GEN-LAST:event_jButton3ActionPerformed
 

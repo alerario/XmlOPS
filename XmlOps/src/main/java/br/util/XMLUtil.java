@@ -5,7 +5,6 @@
  */
 package br.util;
 
-import br.model.Alunos;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -25,19 +24,19 @@ import javax.xml.validation.SchemaFactory;
  */
 public class XMLUtil {
 
-    public String convertObjectToXML(Object objeto, File file) {
+    public String convertObjectToXML(Object objeto, File file, Class classe) {
         try {
 
-            JAXBContext context = JAXBContext.newInstance(Alunos.class);
+            JAXBContext context = JAXBContext.newInstance(classe);
             Marshaller m = context.createMarshaller();
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
-            m.marshal(objeto, System.out); //imprime 
+            m.marshal(objeto, System.out); //imprime no console
 
             StringWriter sw = new StringWriter();
 
             m.marshal(objeto, sw);
-
+            
             if (file != null) {
                 m.marshal(objeto, file);
             }

@@ -20,9 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Aluno implements Serializable{
     private int id;
     private String ra;
-    private String nome;
-    
-   
+    private String nome; 
     private ArrayList<Disciplina> ldisciplina;
 
     @XmlElementWrapper(name = "disciplinas", namespace = "")
