@@ -12,15 +12,21 @@ import br.util.JavaClassLoader;
 import br.util.Util;
 import br.util.VarreJar;
 import br.util.XMLUtil;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -34,7 +40,23 @@ public class Principal extends javax.swing.JFrame {
     private ArrayList<Aluno> lalunos;
 
     public Principal() {
+
+        try {
+            URL url = getClass().getResource("/xml.png");
+            ImageIcon imgicon = new ImageIcon(url);
+            setIconImage(imgicon.getImage());
+
+            //adicionar icone no mac
+            com.apple.eawt.Application application = com.apple.eawt.Application.getApplication();
+            application.setDockIconImage(imgicon.getImage());
+
+        } catch (Exception e) {
+            System.out.println("ERRO");
+            e.printStackTrace();
+        }
+
         initComponents();
+
         lalunos = new ArrayList();
     }
 
@@ -231,7 +253,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(jButton8))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
                     .addComponent(jScrollPane2)))
         );
 
@@ -308,7 +330,7 @@ public class Principal extends javax.swing.JFrame {
         if (xmlfile != null) {
             Object objeto = new br.util.XMLUtil().convertXmlToObject(xmlfile, xsdfile, Alunos.class);
             Alunos alunos = (Alunos) objeto;
-            lalunos = alunos.getLaluno(); 
+            lalunos = alunos.getLaluno();
             jTextArea2.setText("Arquivo xml carregado");
         } else {
             jTextArea2.setText("=== Arquivo NAO carregado ===");
@@ -372,7 +394,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        br.gui.XMLTreeViewer xt = new XMLTreeViewer(jTextArea2.getText());
+
+        br.gui.XMLTreeViewer xt = new XMLTreeViewer(jTextArea2.getText(), this);
+        xt.setAlwaysOnTop(true);
+
         xt.setVisible(true);
 
     }//GEN-LAST:event_jButton8ActionPerformed

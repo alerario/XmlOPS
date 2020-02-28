@@ -8,15 +8,17 @@ import org.jdom.*;
 import org.jdom.input.SAXBuilder;
 import java.io.StringReader;
 
-public class XMLTreeViewer extends JFrame {
+public class XMLTreeViewer extends JDialog{ //Tambem pode ser um JFrame
 
     private JTree xmlTree;
+    private JFrame frame;
     private Document xmlDoc;
     DefaultMutableTreeNode tn;
     protected String ATRIB="@"; //previxo para indicar o que e atributo em xmlTree. 
 
-    public XMLTreeViewer(String xml_text) {
-        super();
+    public XMLTreeViewer(String xml_text, JFrame frame) {
+        //super(); //no caso de utilziar jframe
+        this.frame=frame;
         Document doc = null;
         try {
             doc = new SAXBuilder().build(new StringReader(xml_text));
@@ -64,11 +66,14 @@ public class XMLTreeViewer extends JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
                 xmlTree = null;
+                frame.setEnabled(true);
                 tn = null;
             }
         });
 
         setVisible(true);
+        frame.setEnabled(false);
+ 
     }
 
     private void processElement(Element el, DefaultMutableTreeNode dmtn) {

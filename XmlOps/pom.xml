@@ -37,6 +37,11 @@
             <version>1.0</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+    <groupId>com.apple</groupId>
+    <artifactId>AppleJavaExtensions</artifactId>
+    <version>1.4</version>
+</dependency>
     </dependencies>  
     <build>
         <plugins>
@@ -74,5 +79,17 @@
                 </executions>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/java/resources</directory>
+                <includes>
+                    <include>xml.png</include>
+                     <include>xml.gif</include>
+                      <include>xml_32.gif</include>
+                       <include>xmls.png</include>
+                       
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>
