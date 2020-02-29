@@ -1,5 +1,5 @@
 # XmlOPS
-Manipulação de XML em Java
+Manipulação de XML em Java. Um exemplo com a estrutura dentro do pacote model. Cria XSD a partir de qualquer .jar
 
 Ambiente de desenvolvimento:
 
