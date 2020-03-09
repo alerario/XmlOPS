@@ -5,6 +5,10 @@
  */
 package br.util;
 
+import br.model.Alunos;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -101,6 +105,18 @@ public class XMLUtil {
         public String getSchema() {
             return stringWriter.toString();
         }
+    }
+    
+    public String OBJtoJSON(Object objeto, Class classe){
+        //transforacao utilizando jackson
+        String result="";
+        try{
+          ObjectMapper objectMapper = new ObjectMapper();       
+          result = objectMapper.writeValueAsString(objeto);
+        }catch(Exception e){
+            System.out.println("ERRO:" + e.getMessage());
+        }
+        return result;
     }
 
 }

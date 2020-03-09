@@ -38,10 +38,15 @@
             <type>jar</type>
         </dependency>
         <dependency>
-    <groupId>com.apple</groupId>
-    <artifactId>AppleJavaExtensions</artifactId>
-    <version>1.4</version>
-</dependency>
+            <groupId>com.apple</groupId>
+            <artifactId>AppleJavaExtensions</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.9.0</version>
+        </dependency>
     </dependencies>  
     <build>
         <plugins>
