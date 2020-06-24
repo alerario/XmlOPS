@@ -41,23 +41,35 @@ public class Principal extends javax.swing.JFrame {
 
     public Principal() {
 
-        try {
-            URL url = getClass().getResource("/xml.png");
-            ImageIcon imgicon = new ImageIcon(url);
-            setIconImage(imgicon.getImage());
-
-             //adicionar icone no mac
-            String so = System.getProperty("os.name");
-            if (so.toUpperCase().startsWith("MAC")) {
-                com.apple.eawt.Application application = com.apple.eawt.Application.getApplication();
-                application.setDockIconImage(imgicon.getImage());
-            }
-        } catch (Exception e) {
-            System.out.println("ERRO");
-            e.printStackTrace();
-        }
 
         initComponents();
+
+        BufferedImage myAppImage = null;
+        try {
+            myAppImage = ImageIO.read(getClass().getClassLoader().getResource("xml.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        //             new probuilder.util.resources.Images().loadIcon("logo");
+        if (myAppImage != null) {
+            this.setIconImage((Image) myAppImage);
+
+            String so = System.getProperty("os.name");
+            if (so.toUpperCase().startsWith("MAC")) {
+                try {
+                    String className = "com.apple.eawt.Application";
+                    Class<?> cls = Class.forName(className);
+                    Object application = cls.newInstance().getClass().getMethod("getApplication")
+                            .invoke(null);
+                    application.getClass().getMethod("setDockIconImage", java.awt.Image.class)
+                            .invoke(application, myAppImage);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+
+        }
 
         lalunos = new ArrayList();
     }
@@ -418,7 +430,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        String xml=jTextArea2.getText();
+        String xml = jTextArea2.getText();
         String json = new XMLUtil().OBJtoJSON(new Alunos(lalunos), Alunos.class);
         jTextArea2.setText(json);
     }//GEN-LAST:event_jButton9ActionPerformed
