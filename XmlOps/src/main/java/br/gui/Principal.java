@@ -43,7 +43,6 @@ public class Principal extends javax.swing.JFrame {
 
 
         initComponents();
-
         BufferedImage myAppImage = null;
         try {
             myAppImage = ImageIO.read(getClass().getClassLoader().getResource("xml.png"));
@@ -51,7 +50,6 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //             new probuilder.util.resources.Images().loadIcon("logo");
         if (myAppImage != null) {
             this.setIconImage((Image) myAppImage);
 
