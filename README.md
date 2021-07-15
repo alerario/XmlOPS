@@ -3,7 +3,7 @@ Manipulação de XML em Java. Um exemplo com a estrutura dentro do pacote model.
 
 Ambiente de desenvolvimento:
 
-- NetBeans 12.2
+- NetBeans 12.4
 
 - jdk11
 
